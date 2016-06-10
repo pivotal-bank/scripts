@@ -95,7 +95,8 @@ main()
 
 trap 'abort $LINENO' 0
 SECONDS=0
+SCRIPTNAME=`basename "$0"`
 
 main
 
-echo_msg "Deployment Complete in $SECONDS seconds."
+echo "Executed $SCRIPTNAME in $SECONDS seconds."

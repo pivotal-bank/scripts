@@ -7,6 +7,8 @@ addTarget()
   cf restage $1
 }
 
+SCRIPTNAME=`basename "$0"`
+
 # Work out the CF_TARGET
 CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
 # Disable PWS because of SCS Tile
@@ -28,3 +30,5 @@ done
 
 #Annoying hack
 addTarget webtrader
+
+echo "Executed $SCRIPTNAME in $SECONDS seconds."
