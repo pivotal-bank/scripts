@@ -1,16 +1,16 @@
 # What am I??
-A bunch of scripts - to deploy or clean out Spring Boot Trader / Pivotal bank in one fell shot
+A bunch of scripts that either deploy or clean out Spring Boot Trader
 
-## Scripts to deploy the apps
+## Scripts to deploy everything
 **PLEASE NOTE**
 * Before running these scripts, open setVars.sh and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
-* After running script 1, got into Apps Manager and configure the location of the backing Github Configuration.
+* After running script 1, go into Apps Manager and configure the location of the backing Github Configuration.
 
-These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to script 3 :) After running scr
+These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to script 3 :)
 
 ### 1_createService.sh
 This script creates PCF Services from the marketplace - specifically an instance of MySQL, ConfigServer, ServiceDiscovery and CircuitBreaker. It chooses which services and service plans to create by reading a file called ```PCFServices.list```
-It won't fail or re-build these services if they already exist in the space with the same name. Run the corresponding delete script first if you want a clean start.
+It won't fail or re-build these services if they already exist in the space with the same name. Run the corresponding delete script first if you want a clean start (see below).
 
 To execute simply run:
 
@@ -33,3 +33,10 @@ This script is necessary to make your Microservices register with Eureka in Serv
 To execute simply run:
 
 ``` ./3_addTarget.sh ```
+
+## Scripts to delete the apps and services
+
+Delete the apps first and then the services. There are two scripts, so simply run:
+
+```./deleteAllApps.sh
+./deleteAllServices.sh```
