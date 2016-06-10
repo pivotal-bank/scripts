@@ -1,4 +1,5 @@
 #!/bin/sh
+#set -x
 
 # set some variables
 . ./setVars.sh
@@ -33,14 +34,22 @@ echo_msg()
 
 create_single_service()
 {
-  SI=`echo $1 | cut -d " " -f 3`
-  EXISTS=`cf services | grep $SI | wc -l | xargs`
+  line="$@"
+  SI=`echo "$line" | cut -d " " -f 3`
+  EXISTS=`cf services | grep ${SI} | wc -l | xargs`
   if [ $EXISTS -eq 0 ]
   then
-    cf create-service ${1}
+    if [[ $line == *"p-config-server"*  &&  ! -z "$GITHUB_URI" ]]
+    then
+      #echo "This is config server"
+      #Annoying hack because of quotes, single quotes etc ....
+      cf create-service $line -c ''\{\"git\":\{\"uri\":\""${GITHUB_URI}"\",\"label\":\"master\"\}\}''
+    else
+      cf create-service $line
+    fi
     scs_service_created=1
   else
-    echo_msg "${1} already exists"
+    echo_msg "${SI} already exists"
   fi
 }
 
@@ -81,7 +90,7 @@ main()
   create_all_services
   summary
 
-  echo_msg "Services ready, now please configure the ConfigServer service before proceeding, use Apps Manager to point it to the right Github Repoi, e.g. https://github.com/pivotal-bank/cf-SpringBootTrader-config.git"
+  #echo_msg "Services ready, now please configure the ConfigServer service before proceeding, use Apps Manager to point it to the right Github Repoi, e.g. https://github.com/pivotal-bank/cf-SpringBootTrader-config.git"
 }
 
 trap 'abort $LINENO' 0
