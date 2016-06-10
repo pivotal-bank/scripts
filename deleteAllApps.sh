@@ -13,8 +13,10 @@ APPS=`cat microServices.list`
 for app in ${APPS[@]}
 do
   app=`echo $app | cut -d "-" -f1`
-  delete $app
+  (delete $app )
 done
 
 #Annoying hack
 delete webtrader
+
+exit 0

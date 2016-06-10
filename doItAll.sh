@@ -19,10 +19,13 @@ trap 'abort $LINENO' 0
 SECONDS=0
 SCRIPTNAME=`basename "$0"`
 
-./deleteAllApps.sh
-./deleteAllServices.sh
-./1_createServices.sh
-./2_buildAndDeploy.sh
-./3_addTarget.sh
+(./deleteAllApps.sh )
+wait
+(./deleteAllServices.sh)
+wait
+sh ./1_createServices.sh
+sh ./2_buildAndDeploy.sh
+sh ./3_addTarget.sh
 
 echo "Executed $SCRIPTNAME in $SECONDS seconds."
+exit 0

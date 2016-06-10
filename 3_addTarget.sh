@@ -32,3 +32,5 @@ done
 addTarget webtrader
 
 echo "Executed $SCRIPTNAME in $SECONDS seconds."
+
+exit 0

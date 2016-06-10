@@ -11,5 +11,7 @@ file=./PCFServices.list
 #for service in ${SERVICES[@]}
 while read service plan si
 do
-  delete $si
+  (delete $si )
 done < "$file"
+
+exit 0

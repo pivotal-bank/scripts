@@ -67,7 +67,7 @@ create_all_services()
   if [ $scs_service_created -eq 1 ]
   then
     # Sleep for service registry
-    max=12
+    max=18
   for ((i=1; i<=$max; ++i )) ; do
      echo "Pausing to allow Spring Cloud Services to Initialise.....$i/$max"
      sleep 5
@@ -100,3 +100,4 @@ SCRIPTNAME=`basename "$0"`
 main
 
 echo "Executed $SCRIPTNAME in $SECONDS seconds."
+exit 0
