@@ -30,7 +30,9 @@ done
 
 #Annoying hack
 addTarget webtrader
-
 wait
+
+cf apps
+cf services
 echo "Executed $SCRIPTNAME in $SECONDS seconds."
 exit 0
