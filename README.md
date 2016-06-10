@@ -18,16 +18,18 @@ To execute simply run:
 
 Note - before running step 2, Log into Apps Manager, hit 'Manage' on the ConfigServer service and paste in the URL of the Github repo storing the config for Spring Boot Trader and apply changes.
 
+After it creates the services, this script pauses 60 seconds to allow the Spring Cloud Services to initialise, if you want to skip this just hit Ctl+C.
+
 ### 2_buildAndDeploy.sh
 This script performs a Gradle build and then a cf push of all the Microservices, sequentially. It reads the Micoservices to build and deploy from a file called ```microServices.list```. Edit this file if you have more microservices or need to remove any.
 
 To execute simply run:
 
-``` ./1_buildAndDeploy.sh ```
+``` ./2_buildAndDeploy.sh ```
 
 ### 3_addTarget.sh
-This script is necessary to make your Microservices register with Eureka in <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">Service Discovery</a>
+This script is necessary to make your Microservices register with Eureka in Service Discovery. This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>. If you ar eon such a PCF environment and you don't run this step, then none of your Microservices witll Register in Service Discovery even though they have bound to the service.
 
 To execute simply run:
 
-``` ./1_buildAndDeploy.sh ```
+``` ./3_addTarget.sh ```
