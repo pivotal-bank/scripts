@@ -3,14 +3,14 @@ A bunch of scripts that either deploy or clean out Spring Boot Trader
 
 ## Scripts to deploy everything
 **PLEASE NOTE**
-* Before running these scripts, open setVars.sh and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
+* Before running these scripts, open ```setVars.sh``` and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
 * After running script 1, go into Apps Manager and configure the location of the backing Github Configuration.
 
 These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to script 3 :)
 
 ### 1_createService.sh
 This script creates PCF Services from the marketplace - specifically an instance of MySQL, ConfigServer, ServiceDiscovery and CircuitBreaker. It chooses which services and service plans to create by reading a file called ```PCFServices.list```
-It won't fail or re-build these services if they already exist in the space with the same name. Run the corresponding delete script first if you want a clean start (see below).
+It won't fail or re-build these services if they already exist in the CF space with the same name. Run the corresponding delete script first if you want a clean start (see below).
 
 To execute simply run:
 
@@ -28,7 +28,7 @@ To execute simply run:
 ``` ./2_buildAndDeploy.sh ```
 
 ### 3_addTarget.sh
-This script is necessary to make your Microservices register with Eureka in Service Discovery. This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>. If you ar eon such a PCF environment and you don't run this step, then none of your Microservices witll Register in Service Discovery even though they have bound to the service.
+This script is necessary to make your Microservices register with Eureka in Service Discovery. This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>. If you are on such a PCF environment and you don't run this step, then none of your Microservices will Register in Service Discovery even though they have bound to the service. It also uses the ```microServices.list``` file.
 
 To execute simply run:
 
@@ -39,4 +39,6 @@ To execute simply run:
 Delete the apps first and then the services. There are two scripts, so simply run:
 
 ```./deleteAllApps.sh
-./deleteAllServices.sh```
+./deleteAllServices.sh ```
+
+The scripts rely on the files ```PCFServices.list``` and ```microServices.list```
