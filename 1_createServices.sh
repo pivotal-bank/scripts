@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # set some variables
-BASE_DIR=../.
+. ./setVars.sh
 
 abort()
 {

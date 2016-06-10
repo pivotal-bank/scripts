@@ -1,4 +1,5 @@
 #!/bin/sh
+. ./setVars.sh
 
 addTarget()
 {
