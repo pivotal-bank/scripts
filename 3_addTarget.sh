@@ -4,7 +4,7 @@
 addTarget()
 {
   cf set-env $1 CF_TARGET $CF_TARGET
-  cf restage $1
+  cf restage $1 &
 }
 
 SCRIPTNAME=`basename "$0"`
@@ -31,6 +31,6 @@ done
 #Annoying hack
 addTarget webtrader
 
+wait
 echo "Executed $SCRIPTNAME in $SECONDS seconds."
-
 exit 0

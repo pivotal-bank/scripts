@@ -61,7 +61,6 @@ main()
     build $app &
     sleep 4
   done
- 
   wait
 
   for app in ${APPS[@]}

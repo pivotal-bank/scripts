@@ -60,7 +60,7 @@ create_all_services()
   file="./PCFServices.list"
   while IFS= read -r line 
   do
-    create_single_service "$line"
+    create_single_service "$line" 
   done < "$file"
   echo_msg "Services created, bear in mind Spring Cloud Services need about a minute to fully initialise."
 
