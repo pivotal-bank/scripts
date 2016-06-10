@@ -2,7 +2,7 @@
 A bunch of scripts - to deploy or clean out Spring Boot Trader / Pivotal bank in one fell shot
 
 ## Scripts to deploy the apps
-** Before running these scripts, open setVars.sh and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. You're then good to go!**
+**Before running these scripts, open setVars.sh and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. You're then good to go!**
 
 These scripts are numbered, just run them in the logical order of numbering :) All the scripts execute
 
