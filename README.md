@@ -44,3 +44,4 @@ Delete the apps first and then the services. There are two scripts, so simply ru
 ```
 
 The scripts rely on the files ```PCFServices.list``` and ```microServices.list```
+Both scripts forcibly remove objects, in addition the delete apps script removes the route as well.
