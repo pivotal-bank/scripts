@@ -1,4 +1,4 @@
-p-circuit-breaker-dashboard standard circuit-breaker-dashboard
-p-config-server standard config-server
 p-service-registry standard discovery-service
+p-config-server standard config-server
+p-circuit-breaker-dashboard standard circuit-breaker-dashboard
 p-mysql 100mb traderdb
