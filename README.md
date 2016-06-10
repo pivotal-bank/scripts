@@ -4,7 +4,7 @@ A bunch of scripts that either deploy or clean out Spring Boot Trader
 ## Scripts to deploy everything
 **PLEASE NOTE**
 * Before running these scripts, open ```setVars.sh``` and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
-* After running script 1, go into Apps Manager and configure the location of the backing Github Configuration.
+* Edit the line GITHUB_URI to point it to your github containing configuration (or accept the default)
 
 These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to script 3 :)
 
@@ -15,8 +15,6 @@ It won't fail or re-build these services if they already exist in the CF space w
 To execute simply run:
 
 ``` ./1_createService.sh ```
-
-Note - before running step 2, Log into Apps Manager, hit 'Manage' on the ConfigServer service and paste in the URL of the Github repo storing the config for Spring Boot Trader and apply changes.
 
 After it creates the services, this script pauses 60 seconds to allow the Spring Cloud Services to initialise, if you want to skip this just hit Ctl+C.
 
