@@ -65,8 +65,10 @@ main()
 
   for app in ${APPS[@]}
   do
-    deploy $app
+    deploy $app &
+    sleep 8
   done
+  wait
   
   summary
 }
