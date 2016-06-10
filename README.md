@@ -38,7 +38,9 @@ To execute simply run:
 
 Delete the apps first and then the services. There are two scripts, so simply run:
 
-```./deleteAllApps.sh
-./deleteAllServices.sh ```
+```
+./deleteAllApps.sh
+./deleteAllServices.sh
+```
 
 The scripts rely on the files ```PCFServices.list``` and ```microServices.list```
