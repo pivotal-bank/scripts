@@ -28,7 +28,9 @@ To execute simply run:
 ``` ./2_buildAndDeploy.sh ```
 
 ### 3_addTarget.sh
-This script is necessary to make your Microservices register with Eureka in Service Discovery. This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>. If you are on such a PCF environment and you don't run this step, then none of your Microservices will Register in Service Discovery even though they have bound to the service. It also uses the ```microServices.list``` file.
+This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>.  If you are on such a PCF environment and you don't run this step.
+
+The script is necessary to make your Microservices register with Eureka in Service Discovery, if you are sing self-signed certs and do not run it, then none of your Microservices will Register in Service Discovery even though they have bound to the service. It also uses the ```microServices.list``` file.
 
 To execute simply run:
 
