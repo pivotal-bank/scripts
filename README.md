@@ -1,5 +1,5 @@
 # What am I??
-A bunch of scripts that either deploy or clean out Spring Boot Trader
+A bunch of scripts that either deploy or clean out <a href="https://github.com/pivotal-bank/cf-SpringBootTrader">Spring Boot Trader</a>
 
 **PLEASE NOTE**
 * Before running these scripts, open ```setVars.sh``` and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
