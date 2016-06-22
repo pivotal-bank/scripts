@@ -103,5 +103,5 @@ SCRIPTNAME=`basename "$0"`
 
 main
 
-echo "Executed $SCRIPTNAME in $SECONDS seconds."
+printf "\nExecuted $SCRIPTNAME in $SECONDS seconds.\n"
 exit 0

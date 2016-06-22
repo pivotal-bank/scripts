@@ -32,20 +32,6 @@ echo_msg()
   echo "************** ${1} **************"
 }
 
-deploy()
-{
-  echo_msg "Deploying $1"
-  cd $BASE_DIR/$1
-  cf push -f build/manifest.yml
-  if [ $? -eq 0 ]
-  then
-    echo "Successfully deployed $1"
-  else
-    echo "Could not deploy $1" >&2
-    exit 1
-  fi
-}
-
 build()
 {
   echo_msg "Building $1"
@@ -63,13 +49,6 @@ main()
   done
   wait
 
-  for app in ${APPS[@]}
-  do
-    deploy $app &
-    sleep 8
-  done
-  wait
-  
   summary
 }
 
@@ -80,5 +59,5 @@ SCRIPTNAME=`basename "$0"`
 
 main
 
-echo "Executed $SCRIPTNAME in $SECONDS seconds."
+printf "\nExecuted $SCRIPTNAME in $SECONDS seconds.\n"
 exit 0

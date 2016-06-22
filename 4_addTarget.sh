@@ -34,5 +34,5 @@ wait
 
 cf apps
 cf services
-echo "Executed $SCRIPTNAME in $SECONDS seconds."
+printf "\nExecuted $SCRIPTNAME in $SECONDS seconds.\n"
 exit 0
