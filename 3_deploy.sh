@@ -1,36 +1,11 @@
 #!/bin/sh
 
-# set some variables
-. ./setVars.sh
+# This script:
+#   1) Reads microservices.list
+#   2) Pushes each microservices to PCF
+#       
 
-abort()
-{
-    if [ "$?" = "0" ]
-    then
-        return
-    else
-      echo >&2 '
-      ***************
-      *** ABORTED ***
-      ***************
-      '
-      echo "An error occurred on line $1. Exiting..." >&2
-      exit 1
-    fi
-}
-
-summary()
-{
-  echo_msg "Current Apps & Services in CF_SPACE"
-  cf apps
-  cf services
-}
-
-echo_msg()
-{
-  echo ""
-  echo "************** ${1} **************"
-}
+source ./commons.sh
 
 deploy()
 {
@@ -48,21 +23,20 @@ deploy()
 
 main()
 {
-  APPS=`cat microServices.list`
-
-  for app in ${APPS[@]}
+  file="microServices.list"
+  while IFS= read -r app
   do
-    deploy $app &
-    sleep 8
-  done
+    if [ ! "${app:0:1}" == "#" ]
+    then
+      deploy $app &
+      sleep 8
+    fi
+  done < "$file"
   wait
   
-  summary
+  summaryOfApps
+  summaryOfServices
 }
-
-trap 'abort $LINENO' 0
-SECONDS=0
-SCRIPTNAME=`basename "$0"`
 
 main
 

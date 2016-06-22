@@ -1,5 +1,11 @@
 #!/bin/sh
-. ./setVars.sh
+# This script
+#   1) Reads microservices.list
+#   2) Adds the CF target env variable
+#   3) restages the apps
+
+
+source ./commons.sh
 
 addTarget()
 {
@@ -7,32 +13,24 @@ addTarget()
   cf restage $1 &
 }
 
-SCRIPTNAME=`basename "$0"`
-
-# Work out the CF_TARGET
-CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
-# Disable PWS because of SCS Tile
-PWS=`echo $CF_TARGET | grep "run.pivotal.io" | wc -l`
-if [ $PWS -ne 0 ]
-then
-  echo_msg "This won't run on PWS, please use another environment"
-  exit 1
-fi
-
 echo "Attaching apps to Spring Cloud Services, watch progress in the Service Discovery Service"
 
-APPS=`cat microServices.list`
-for app in ${APPS[@]}
+file="./microServices.list"
+while IFS= read -r app
 do
-  app=`echo $app | cut -d "-" -f1`
-  addTarget $app
-done
+  if [ ! "${app:0:1}" == "#" ]
+  then
+    app=`echo $app | cut -d "-" -f1`
+    addTarget $app
+    sleep 4
+  fi
+done < "$file"
 
 #Annoying hack
 addTarget webtrader
 wait
 
-cf apps
-cf services
+summaryOfApps
+summaryOfServices
 printf "\nExecuted $SCRIPTNAME in $SECONDS seconds.\n"
 exit 0

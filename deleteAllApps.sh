@@ -1,24 +1,28 @@
 #!/bin/sh
 
-# set some variables
+source ./commons.sh
 
 delete()
 {
   cf delete -f -r $1
 }
 
-cf apps
+summaryOfApps
 
-APPS=`cat microServices.list`
-for app in ${APPS[@]}
+file="./microServices.list"
+while IFS= read -r app
 do
-  app=`echo $app | cut -d "-" -f1`
-  delete $app &
-done
+  if [ ! "${app:0:1}" == "#" ]
+  then
+    app=`echo $app | cut -d "-" -f1`
+    delete $app &
+  fi
+done < "$file"
 
 #Annoying hack
 delete webtrader &
 
 wait
 
+summaryOfApps
 exit 0

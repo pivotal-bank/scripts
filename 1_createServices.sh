@@ -1,36 +1,13 @@
 #!/bin/sh
+
+# This script:
+#   1) Reads PCFServices.list
+#   2) Creates the Services
+#      a) Hack 1 - handle the correct quotations for Github URI
+#      b) Hack 2 - handles changed name of MySQL plan between PCF versions
+
 #set -x
-
-# set some variables
-. ./setVars.sh
-
-abort()
-{
-    if [ "$?" = "0" ]
-    then
-        return
-    else
-      echo >&2 '
-      ***************
-      *** ABORTED ***
-      ***************
-      '
-      echo "An error occurred on line $1. Exiting..." >&2
-      exit 1
-    fi
-}
-
-summary()
-{
-  echo_msg "Current Services in CF_SPACE"
-  cf services
-}
-
-echo_msg()
-{
-  echo ""
-  echo "************** ${1} **************"
-}
+source ./commons.sh
 
 create_single_service()
 {
@@ -61,10 +38,14 @@ create_all_services()
 {
   scs_service_created=0
 
+  # Read all the services that need to be created
   file="./PCFServices.list"
   while IFS= read -r line 
   do
-    create_single_service "$line" 
+    if [ ! "${line:0:1}" == "#" ]   #Skip comments
+    then
+      create_single_service "$line" 
+    fi
   done < "$file"
   echo_msg "Services created, bear in mind Spring Cloud Services need about a minute to fully initialise."
 
@@ -81,7 +62,7 @@ create_all_services()
 
 main()
 {
-# Work out the CF_TARGET
+  # Work out the CF_TARGET
   CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
   # Disable PWS because of SCS Tile
   PWS=`echo $CF_TARGET | grep "run.pivotal.io" | wc -l`
@@ -92,9 +73,7 @@ main()
   fi
 
   create_all_services
-  summary
-
-  #echo_msg "Services ready, now please configure the ConfigServer service before proceeding, use Apps Manager to point it to the right Github Repoi, e.g. https://github.com/pivotal-bank/cf-SpringBootTrader-config.git"
+  summaryOfServices
 }
 
 trap 'abort $LINENO' 0

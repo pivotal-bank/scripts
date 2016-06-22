@@ -1,4 +1,6 @@
 #!/bin/sh
+source ./commons.sh
+
 IFS=' '
 
 delete()
@@ -6,12 +8,15 @@ delete()
   cf delete-service -f $1
 }
 
-#SERVICES=`cat PCFServices.list`
-file=./PCFServices.list
-#for service in ${SERVICES[@]}
+file="./PCFServices.list"
 while read service plan si
 do
-  delete $si &
+  if [ ! "${service:0:1}" == "#" ]
+  then
+    delete $si &
+  fi
 done < "$file"
 wait
+
+summaryOfServices
 exit 0
