@@ -19,9 +19,9 @@ trap 'abort $LINENO' 0
 SECONDS=0
 SCRIPTNAME=`basename "$0"`
 
-./deleteAllApps.sh &
+./deleteListedApps.sh &
 wait
-./deleteAllServices.sh &
+./deleteListedServices.sh &
 wait
 sh ./1_createServices.sh
 sh ./2_build.sh
