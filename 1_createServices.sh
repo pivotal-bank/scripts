@@ -41,9 +41,13 @@ create_single_service()
   then
     if [[ $line == *"p-config-server"*  &&  ! -z "$GITHUB_URI" ]]
     then
-      #echo "This is config server"
       #Annoying hack because of quotes, single quotes etc ....
       cf create-service $line -c ''\{\"git\":\{\"uri\":\""${GITHUB_URI}"\",\"label\":\"master\"\}\}''
+    elif [[ $line == *"p-mysql"* ]]
+    then
+      #Yet another annoying hack ....
+      PCF_PLAN=`cf marketplace -s p-mysql | grep 100mb | cut -d " " -f1 | xargs`
+      cf create-service p-mysql $PCF_PLAN $SI
     else
       cf create-service $line
     fi
