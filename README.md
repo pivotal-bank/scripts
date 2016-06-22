@@ -25,7 +25,7 @@ To execute simply run:
 
 After it creates the services, this script pauses 60 seconds to allow the Spring Cloud Services to initialise, if you want to skip this just hit Ctl+C.
 
-### 2_buildAndDeploy.sh
+### 2_build.sh
 This script performs a parallel Gradle build of the microservices. The parallelism is staggered. It reads the Micoservices to build and deploy from a file called ```microServices.list```. Edit this file if you have more microservices or need to remove any.
 
 To execute simply run:
