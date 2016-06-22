@@ -26,20 +26,27 @@ To execute simply run:
 After it creates the services, this script pauses 60 seconds to allow the Spring Cloud Services to initialise, if you want to skip this just hit Ctl+C.
 
 ### 2_buildAndDeploy.sh
-This script performs a Gradle build and then a cf push of all the Microservices, sequentially. It reads the Micoservices to build and deploy from a file called ```microServices.list```. Edit this file if you have more microservices or need to remove any.
+This script performs a parallel Gradle build of the microservices. The parallelism is staggered. It reads the Micoservices to build and deploy from a file called ```microServices.list```. Edit this file if you have more microservices or need to remove any.
 
 To execute simply run:
 
-``` ./2_buildAndDeploy.sh ```
+``` ./2_build.sh ```
 
-### 3_addTarget.sh
+### 3_deploy.sh
+This script performs a parallel cf push of all the Microservices (parallelism is staggered). It reads the Micoservices to build and deploy from a file called ```microServices.list```. Edit this file if you have more microservices or need to remove any.
+
+To execute simply run:
+
+``` ./3_deploy.sh ```
+
+### 4_addTarget.sh
 This step is only necessary if you are running in a PCF environment which <a href="https://docs.pivotal.io/spring-cloud-services/service-registry/writing-client-applications.html" target="_blank">uses self-signed certificates</a>.  If you are not on such a PCF environment, don't run this step.
 
 The script is necessary to make your Microservices register with Eureka in Service Discovery, if you are using self-signed certs and do not run it, then none of your Microservices will Register in Service Discovery even though they have bound to the service. It also uses the ```microServices.list``` file.
 
 To execute simply run:
 
-``` ./3_addTarget.sh ```
+``` ./4_addTarget.sh ```
 
 ## Scripts to delete the apps and services
 
