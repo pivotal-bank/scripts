@@ -9,7 +9,7 @@ CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
 PWS=`echo $CF_TARGET | grep "run.pivotal.io" | wc -l`
 if [ $PWS -ne 0 ]
 then
-  echo_msg "This won't run on PWS, please use another environment"
+  echo "This won't run on PWS, please use another environment"
   exit 1
 fi
 
