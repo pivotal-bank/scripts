@@ -3,7 +3,7 @@ A bunch of scripts that either deploy or clean out <a href="https://github.com/p
 
 **PLEASE NOTE**
 * Before running these scripts, open ```setVars.sh``` and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
-* Edit the line GITHUB_URI to point it to your github containing configuration (or accept the default)
+* Optionally edit the line GITHUB_URI to point it to your github containing configuration (or accept the default)
 
 ## Scripts to deploy everything
 If you want ultimate simplicity just run:
