@@ -13,7 +13,7 @@ If you want ultimate simplicity just run:
 This will delete previous app instances, previous service instances, re-create the services, build and push the apps (and activate certificates with Spring Cloud Services).
 
 ## Scripts to deploy in three steps
-These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to script 3 :)
+These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to the last script  :)
 
 ### 1_createService.sh
 This script creates PCF Services from the marketplace - specifically an instance of MySQL, ConfigServer, ServiceDiscovery and CircuitBreaker. It chooses which services and service plans to create by reading a file called ```PCFServices.list```
@@ -53,8 +53,8 @@ To execute simply run:
 Delete the apps first and then the services. There are two scripts, so simply run:
 
 ```
-./deleteAllApps.sh
-./deleteAllServices.sh
+./deleteListedApps.sh
+./deleteListedServices.sh
 ```
 
 The scripts rely on the files ```PCFServices.list``` and ```microServices.list```
