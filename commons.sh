@@ -3,15 +3,14 @@
 # set some variables
 . ./setVars.sh
 
-# Work out the CF_TARGET
-CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
-# Disable PWS because of SCS Tile
-PWS=`echo $CF_TARGET | grep "run.pivotal.io" | wc -l`
-if [ $PWS -ne 0 ]
-then
-  echo "This won't run on PWS, please use another environment"
-  exit 1
-fi
+checkEnvHasSCS(){
+  DiscovInstalled=`cf marketplace | grep p-service-registry`
+  if [[ -z $DiscovInstalled ]]
+  then
+    echo "The targeted PCF environment does not have Sercvice Discovery in the marketplace, installation will now halt."
+    exit 1
+  fi
+}
 
 abort()
 {
@@ -51,3 +50,4 @@ trap 'abort $LINENO' 0
 SECONDS=0
 SCRIPTNAME=`basename "$0"`
 
+checkEnvHasSCS
