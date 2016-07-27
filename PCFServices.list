@@ -1,5 +1,8 @@
 p-service-registry standard discovery-service
 p-config-server standard config-server
 p-circuit-breaker-dashboard standard circuit-breaker-dashboard
+
 # MySQL - the plan seems to be called differently sometimes ...
 p-mysql 100mb traderdb
+# Uncomment if usng PWS
+#cleardb spark traderdb

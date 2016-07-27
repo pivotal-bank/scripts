@@ -9,6 +9,16 @@
 #set -x
 source ./commons.sh
 
+checkEnvHasSCS(){
+  DiscovInstalled=`cf marketplace | grep p-service-registry`
+  if [[ -z $DiscovInstalled ]]
+  then
+    echo "The targeted PCF environment does not have Service Discovery in the marketplace, installation will now halt."
+    exit 1
+  fi
+}
+
+
 create_single_service()
 {
   line="$@"
@@ -62,6 +72,7 @@ create_all_services()
 
 main()
 {
+  checkEnvHasSCS
   create_all_services
   summaryOfServices
 }

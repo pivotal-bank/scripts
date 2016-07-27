@@ -3,12 +3,11 @@
 #   1) Reads microservices.list
 #   2) Adds the CF target env variable
 #   3) restages the apps
-
-
 source ./commons.sh
 
 addTarget()
 {
+  CF_TARGET=`cf target | grep "API" | cut -d" " -f5| xargs`
   cf set-env $1 CF_TARGET $CF_TARGET
   cf restage $1 &
 }

@@ -3,15 +3,6 @@
 # set some variables
 . ./setVars.sh
 
-checkEnvHasSCS(){
-  DiscovInstalled=`cf marketplace | grep p-service-registry`
-  if [[ -z $DiscovInstalled ]]
-  then
-    echo "The targeted PCF environment does not have Sercvice Discovery in the marketplace, installation will now halt."
-    exit 1
-  fi
-}
-
 abort()
 {
     if [ "$?" = "0" ]
@@ -49,5 +40,3 @@ echo_msg()
 trap 'abort $LINENO' 0
 SECONDS=0
 SCRIPTNAME=`basename "$0"`
-
-checkEnvHasSCS
