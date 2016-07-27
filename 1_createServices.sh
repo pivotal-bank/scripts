@@ -26,6 +26,7 @@ create_single_service()
   EXISTS=`cf services | grep ${SI} | wc -l | xargs`
   if [ $EXISTS -eq 0 ]
   then
+    echo "About to create: $line"
     if [[ $line == *"p-config-server"*  &&  ! -z "$GITHUB_URI" ]]
     then
       #Annoying hack because of quotes, single quotes etc ....
@@ -39,6 +40,7 @@ create_single_service()
       cf create-service $line
     fi
     scs_service_created=1
+    echo "Created: $line"
   else
     echo_msg "${SI} already exists"
   fi
