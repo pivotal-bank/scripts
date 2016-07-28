@@ -30,7 +30,9 @@ create_single_service()
     if [[ $line == *"p-config-server"*  &&  ! -z "$GITHUB_URI" ]]
     then
       #Annoying hack because of quotes, single quotes etc ....
-      cf create-service $line -c ''\{\"git\":\{\"uri\":\""${GITHUB_URI}"\",\"label\":\"master\"\}\}''
+      GIT=`printf '{"git":{"uri":"%s","label":"%s"}}\n' "${GITHUB_URI}" ${GITHUB_BRANCH}`
+      echo $GIT
+      cf create-service $line -c ''$GIT''
     elif [[ $line == *"p-mysql"* ]]
     then
       #Yet another annoying hack ....
