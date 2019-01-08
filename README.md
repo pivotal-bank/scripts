@@ -2,8 +2,22 @@
 A bunch of scripts that either deploy or clean out <a href="https://github.com/pivotal-bank/cf-SpringBootTrader">Spring Boot Trader</a>
 
 **PLEASE NOTE**
+
+Before running any of the scripts you will need to configure the SSO tile and set up a service plan named pivotal-bank-sso. This can be done following these instructions: https://docs.pivotal.io/p-identity/1-7/manage-service-plans.html.
+Once this has been done and identity zone will be created within UAA. Please take note of the identity zone id. You will need this to set up a OAuth2 client that is capable of registering users with UAA.
+
 * Before running these scripts, open ```setVars.sh``` and edit the line for BASE_DIR, point this at the location where you have Spring Boot Trader cloned. 
 * Optionally edit the line GITHUB_URI to point it to your github containing configuration (or accept the default)
+* Create a service plan for the new relic service broker - https://docs.pivotal.io/partners/newrelic/index.html, and set the name of the service plan in the NEW_RELIC_SERVICE_PLAN variable
+* Also please set the following UAA variables:
+  * UAA_ENDPOINT - UAA Endpoint
+  * UAA_ADMIN_CLIENT_ID - UAA Admin Client Id - this can be retrieved from the credentials tab in the PAS tile within Ops Manager
+  * UAA_ADMIN_CLIENT_SECRET - UAA Admin Client Secret - this can be retrieved from credentials tab in the PAS tile within Ops Manager
+  * UAA_IDENTITY_ZONE_ID - This is the ID of the identity zone that is created when the service plan is created in the Pivotal SSO (p-identity) tile
+  * UAA_ZONEADMIN_CLIENT_ID - Id given to the newly created uaac client that will be used by the users microservice to maintain users, please set to whatever you desire
+  * UAA_ZONEADMIN_CLIENT_SECRET - the secret for the newly created uaac client that will be used by the users microservice to maintain users, please set to whatever you desire
+* Run the 0_uaaSetup.sh script before proceeding with any of the other scripts.
+
 
 ## Scripts to deploy everything
 If you want ultimate simplicity just run:
@@ -12,7 +26,7 @@ If you want ultimate simplicity just run:
 
 This will delete previous app instances, previous service instances, re-create the services, build and push the apps (and activate certificates with Spring Cloud Services).
 
-## Scripts to deploy in three steps
+## Scripts to deploy in four steps
 These scripts are numbered, just run them in the logical order of numbering from script 1 all the way to the last script  :)
 
 ### 1_createService.sh
