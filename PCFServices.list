@@ -1,7 +1,13 @@
-p-service-registry standard discovery-service
+p-service-registry standard service-registry
 p-config-server standard config-server
 p-circuit-breaker-dashboard standard circuit-breaker-dashboard
 ######## MySQL - the plan seems to be called differently sometimes ...
-p-mysql 100mb traderdb
+p.mysql db-small traderdb
 # Uncomment if usng PWS
 #cleardb spark traderdb
+####### SSO
+p-identity pivotal-bank-sso pivotal-bank-sso
+####### NewRelic
+newrelic newrelic newrelic
+####### uaa-admin user provided service
+uaa-admin user-provided uaa-admin
