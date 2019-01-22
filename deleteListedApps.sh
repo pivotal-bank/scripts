@@ -21,6 +21,7 @@ done < "$file"
 
 #Annoying hack
 delete webtrader &
+delete users &
 
 wait
 

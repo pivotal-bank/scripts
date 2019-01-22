@@ -37,6 +37,13 @@ create_single_service()
       #Yet another annoying hack ....
       PCF_PLAN=`cf marketplace -s p-mysql | grep 100mb | cut -d " " -f1 | xargs`
       cf create-service p-mysql $PCF_PLAN $SI
+    elif [[ $line == *"uaa-admin"* ]]
+    then
+      UAA_ADMIN_CREDENTIALS=`printf '{"client-id":"%s","client-secret":"%s"}\n' "${UAA_ZONEADMIN_CLIENT_ID}" ${UAA_ZONEADMIN_CLIENT_SECRET}`
+      cf create-user-provided-service uaa-admin -p ''$UAA_ADMIN_CREDENTIALS''
+    elif [[ $line == *"newrelic"* ]]
+    then
+      cf create-service newrelic ''$NEW_RELIC_SERVICE_PLAN'' newrelic
     else
       cf create-service $line
     fi
@@ -62,15 +69,16 @@ create_all_services()
   done < "$file"
   echo_msg "Services created, bear in mind Spring Cloud Services need about a minute to fully initialise."
 
-  if [ $scs_service_created -eq 1 ]
-  then
-    # Sleep for service registry
-    max=18
-  for ((i=1; i<=$max; ++i )) ; do
-     echo "Pausing to allow Spring Cloud Services to Initialise.....$i/$max"
-     sleep 5
-    done
-  fi
+
+  # Sleep while services are being created
+  IN_PROGRESS=$(cf s | grep progress | wc -l | xargs )
+  while [ $IN_PROGRESS -gt 0 ]
+  do
+    echo "Pausing to allow Services to Initialise - Remaining services to create $IN_PROGRESS"
+    sleep 10
+    IN_PROGRESS=$(cf s | grep progress | wc -l | xargs )
+  done
+
 }
 
 main()
